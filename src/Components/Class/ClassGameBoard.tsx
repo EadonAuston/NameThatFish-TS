@@ -1,29 +1,30 @@
 import { Component } from "react";
 import "./styles/game-board.css";
-import { Images } from "../../assets/Images";
+import { initialFishes } from "./InitialFishes";
 
-const initialFishes = [
-  {
-    name: "trout",
-    url: Images.trout,
-  },
-  {
-    name: "salmon",
-    url: Images.salmon,
-  },
-  {
-    name: "tuna",
-    url: Images.tuna,
-  },
-  {
-    name: "shark",
-    url: Images.shark,
-  },
-];
+type ClassGameBoardProps = {
+  makeGuess: (guess: string) => void;
+};
 
-export class ClassGameBoard extends Component {
+export class ClassGameBoard extends Component<ClassGameBoardProps> {
+  state = {
+    guess: "",
+    fishIndex: 0,
+  };
+
   render() {
-    const nextFishToName = initialFishes[0];
+    const { makeGuess } = this.props;
+    const { guess, fishIndex } = this.state;
+    const nextFishToName = initialFishes[fishIndex];
+
+    const submitButton = (
+      e: React.MouseEvent<HTMLInputElement, MouseEvent>
+    ) => {
+      e.preventDefault();
+      makeGuess(guess);
+      this.setState({ fishIndex: fishIndex + 1 });
+      this.setState({ guess: "" });
+    };
     return (
       <div id="game-board">
         <div id="fish-container">
@@ -31,8 +32,13 @@ export class ClassGameBoard extends Component {
         </div>
         <form id="fish-guess-form">
           <label htmlFor="fish-guess">What kind of fish is this?</label>
-          <input type="text" name="fish-guess" />
-          <input type="submit" />
+          <input
+            type="text"
+            name="fish-guess"
+            onChange={(e) => this.setState({ guess: e.target.value })}
+            value={guess}
+          />
+          <input type="submit" onClick={(e) => submitButton(e)} />
         </form>
       </div>
     );
