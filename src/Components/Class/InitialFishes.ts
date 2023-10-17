@@ -1,6 +1,6 @@
 import { Images } from "../../assets/Images";
 
-type FishObject = {
+export type FishObject = {
   name: string;
   url: string;
 };

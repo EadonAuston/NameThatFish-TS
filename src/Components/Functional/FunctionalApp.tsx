@@ -10,6 +10,7 @@ export function FunctionalApp() {
 
   const fishIndex = incorrectCount + correctCount;
   const nextFishToName = initialFishes[fishIndex];
+  const answersLeft = initialFishes.map((fish) => fish.name).slice(fishIndex);
   const makeGuess = (guess: string) => {
     if (guess === nextFishToName.name) {
       setCorrectCount(correctCount + 1);
@@ -20,14 +21,14 @@ export function FunctionalApp() {
 
   return (
     <>
-      {fishIndex !== 4 ? (
+      {fishIndex !== initialFishes.length ? (
         <>
           <FunctionalScoreBoard
             incorrectCount={incorrectCount}
             correctCount={correctCount}
-            fishIndex={fishIndex}
+            answersLeft={answersLeft}
           />
-          <FunctionalGameBoard makeGuess={makeGuess} />
+          <FunctionalGameBoard makeGuess={makeGuess} nextFishToName={nextFishToName}/>
         </>
       ) : (
         <FunctionalFinalScore

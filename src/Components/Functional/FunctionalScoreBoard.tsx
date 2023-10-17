@@ -3,20 +3,14 @@ import "./styles/score-board.css";
 type ScoreBoardProps = {
   incorrectCount: number;
   correctCount: number;
-  fishIndex: number;
+  answersLeft: string[];
 };
 
 export function FunctionalScoreBoard({
   incorrectCount,
   correctCount,
-  fishIndex,
+  answersLeft,
 }: ScoreBoardProps) {
-  const answersLeft = ["trout", "salmon", "tuna", "shark"];
-
-  for (let i = 0; i < fishIndex; i++) {
-    answersLeft.shift();
-  }
-
   return (
     <div id="score-board">
       <div>Incorrect 🔻: {incorrectCount}</div>

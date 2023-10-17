@@ -1,20 +1,17 @@
-import "./styles/game-board.css";
-import { initialFishes } from "./InitialFishes";
+import "./styles/game-board.css"
 import { useState } from "react";
+import { FishObject } from "./InitialFishes";
 
 type FunctionalGameBoardProps = {
   makeGuess: (guess: string) => void;
+  nextFishToName: FishObject;
 };
 
-export function FunctionalGameBoard({ makeGuess }: FunctionalGameBoardProps) {
+export function FunctionalGameBoard({ makeGuess, nextFishToName }: FunctionalGameBoardProps) {
   const [guess, setGuess] = useState<string>("");
-  const [fishIndex, setFishIndex] = useState(0);
-  const nextFishToName = initialFishes[fishIndex];
-
   const submitButton = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
     makeGuess(guess);
-    setFishIndex(fishIndex + 1);
     setGuess("");
   };
 

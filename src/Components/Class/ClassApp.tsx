@@ -14,6 +14,7 @@ export class ClassApp extends Component {
     const { incorrectCount, correctCount } = this.state;
     const fishIndex = incorrectCount + correctCount;
     const nextFishToName = initialFishes[fishIndex];
+    const answersLeft = initialFishes.map((fish) => fish.name).slice(fishIndex);
     const makeGuess = (guess: string) => {
       if (guess === nextFishToName.name) {
         this.setState({ correctCount: correctCount + 1 });
@@ -24,14 +25,14 @@ export class ClassApp extends Component {
 
     return (
       <>
-        {fishIndex !== 4 ? (
+        {fishIndex !== initialFishes.length ? (
           <>
             <ClassScoreBoard
               incorrectCount={incorrectCount}
               correctCount={correctCount}
-              fishIndex={fishIndex}
+              answersLeft={answersLeft}
             />
-            <ClassGameBoard makeGuess={makeGuess} />
+            <ClassGameBoard makeGuess={makeGuess} nextFishToName={nextFishToName}/>
           </>
         ) : (
           <ClassFinalScore

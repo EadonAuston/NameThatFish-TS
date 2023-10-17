@@ -1,28 +1,26 @@
 import { Component } from "react";
 import "./styles/game-board.css";
-import { initialFishes } from "./InitialFishes";
+import { FishObject } from "./InitialFishes";
 
 type ClassGameBoardProps = {
   makeGuess: (guess: string) => void;
+  nextFishToName: FishObject;
 };
 
 export class ClassGameBoard extends Component<ClassGameBoardProps> {
   state = {
     guess: "",
-    fishIndex: 0,
   };
 
   render() {
-    const { makeGuess } = this.props;
-    const { guess, fishIndex } = this.state;
-    const nextFishToName = initialFishes[fishIndex];
+    const { makeGuess, nextFishToName } = this.props;
+    const { guess } = this.state;
 
     const submitButton = (
       e: React.MouseEvent<HTMLInputElement, MouseEvent>
     ) => {
       e.preventDefault();
       makeGuess(guess);
-      this.setState({ fishIndex: fishIndex + 1 });
       this.setState({ guess: "" });
     };
     return (

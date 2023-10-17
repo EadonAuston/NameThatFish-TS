@@ -4,17 +4,12 @@ import "./styles/score-board.css";
 type ScoreBoardProps = {
   incorrectCount: number;
   correctCount: number;
-  fishIndex: number;
+  answersLeft: string[];
 };
 
 export class ClassScoreBoard extends Component<ScoreBoardProps> {
   render() {
-    const { incorrectCount, correctCount, fishIndex } = this.props;
-    const answersLeft = ["trout", "salmon", "tuna", "shark"];
-
-    for (let i = 0; i < fishIndex; i++) {
-      answersLeft.shift();
-    }
+    const { incorrectCount, correctCount, answersLeft } = this.props;
 
     return (
       <div id="score-board">
